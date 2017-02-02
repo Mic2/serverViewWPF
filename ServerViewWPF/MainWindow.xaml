@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <Button x:Name="Debug_button" Content="Open Debug Console" HorizontalAlignment="Left" Margin="382,289,0,0" VerticalAlignment="Top" Width="125" Click="Debug_button_Click"/>
+
     </Grid>
 </Window>
