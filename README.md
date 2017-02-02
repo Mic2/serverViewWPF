@@ -18,3 +18,12 @@ https://msdn.microsoft.com/en-us/library/ms165340.aspx
 #### .suo files ####
 This file contains personal setup that should not be in a repository, and since we didnt have this file inside .gitignore before we started, we need to 
 remove the chached version of the .suo file - git rm --cached <.suo filepath>
+
+#### How to move mainpage to other folder ####
+Problem is that we need to set the path in app.xaml when we move the mainpage file.
+
+``` 
+<Application x:Class="ServerViewWPF.App"
+             StartupUri="View/MainWindow.xaml">
+</Application>
+```
