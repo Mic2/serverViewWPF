@@ -22,6 +22,23 @@ namespace ServerViewWPF
         public MainWindow()
         {
             InitializeComponent();
+
+#if DEBUG
+            Debug_button.IsEnabled = true;
+#else
+            Debug_button.IsEnabled = false;
+#endif
+
+        }
+
+        //bad way of doing it, but we can use it as a test :D
+        private void Debug_button_Click(object sender, RoutedEventArgs e)
+        {
+            DebugConsole.Create();
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Warning! If you close the console you close the program!");
+            Console.ResetColor();
         }
     }
 }

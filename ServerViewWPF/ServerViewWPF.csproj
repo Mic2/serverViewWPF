@@ -54,6 +54,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DebugConsole.cs" />
+    <Compile Include="Model\DalManager.cs" />
     <Compile Include="ViewModel\Server.ViewModel.cs" />
     <Compile Include="ViewModel\WMIManager.cs" />
     <Page Include="MainWindow.xaml">
