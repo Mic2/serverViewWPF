@@ -63,7 +63,7 @@ namespace ServerViewWPF.ViewModel
                 }
                 server.NetWorkCard.Add(netWorkCard);
             }
-            // Return Server obj.
+            // Return Server obj. - skal nok sende til SetServer i DALManager
             return server;
         }
     }

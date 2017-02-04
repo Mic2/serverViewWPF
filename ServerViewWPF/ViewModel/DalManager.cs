@@ -1,6 +1,7 @@
 ﻿using ServerViewWPF.Model;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -109,7 +110,44 @@ namespace ServerViewWPF.ViewModel
         public void SetServer(Server server)
         {
             SqlConnection myConnection = ConnectDB();
+
+            // Insert data to Server
+            SqlCommand Servercmd = new SqlCommand("INSERT INTO dbo.server (Name, Status, Ram, OS) VALUES (@Name, @Status, @Ram, @OS)");
+            Servercmd.CommandType = CommandType.Text;
+            Servercmd.Connection = myConnection;
+            Servercmd.Parameters.AddWithValue("@Name", server.Name);
+            Servercmd.Parameters.AddWithValue("@Status", server.Status);
+            Servercmd.Parameters.AddWithValue("@Ram", server.Ram);
+            Servercmd.Parameters.AddWithValue("@OS", server.OsVer);
+            myConnection.Open(); ;
+            Servercmd.ExecuteNonQuery();
             myConnection.Close();
+            // Insert data to Harddisk
+            foreach (Harddisk Disk in server.Hdd)
+            {
+                SqlCommand Diskcmd = new SqlCommand("INSERT INTO dbo.Hdd (DriveLetter, Size_MB, SFK_ID) VALUES (@DriveLetter, @Size_MB, @SFK_ID)");
+                Diskcmd.CommandType = CommandType.Text;
+                Diskcmd.Connection = myConnection;
+                Diskcmd.Parameters.AddWithValue("@DriveLetter", Disk.DriveLetter);
+                Diskcmd.Parameters.AddWithValue("@Size_MB", Disk.MbSize);
+                Diskcmd.Parameters.AddWithValue("@SFK_ID", server.Name);
+                myConnection.Open(); ;
+                Diskcmd.ExecuteNonQuery();
+                myConnection.Close();
+            }
+            // Insert Data to NetworkCard
+            foreach (NetWorkCard Card in server.NetWorkCard)
+            {
+                SqlCommand Cardcmd = new SqlCommand("INSERT INTO dbo.Netcard (IP, MAC, SFK_ID) VALUES (@IP, @MAC, @SFK_ID)");
+                Cardcmd.CommandType = CommandType.Text;
+                Cardcmd.Connection = myConnection;
+                Cardcmd.Parameters.AddWithValue("@IP", Card.IpAddress);
+                Cardcmd.Parameters.AddWithValue("@MAC", Card.MacAddress);
+                Cardcmd.Parameters.AddWithValue("@SFK_ID", server.Name);
+                myConnection.Open(); ;
+                Cardcmd.ExecuteNonQuery();
+                myConnection.Close();
+            }
         }
     }
 }
