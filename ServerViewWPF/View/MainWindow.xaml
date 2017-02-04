@@ -1,12 +1,18 @@
-﻿<Window x:Class="ServerViewWPF.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ServerViewWPF"
+        xmlns:ViewModel="clr-namespace:ServerViewWPF.ViewModel" x:Class="ServerViewWPF.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
+    <Window.DataContext>
+        <ViewModel:ServerViewModel/>
+    </Window.DataContext>
     <Grid>
-        
+        <Button x:Name="button" Content="Add new host" HorizontalAlignment="Left" Margin="18,46,0,0" VerticalAlignment="Top" Width="88" Command="{Binding AddHostCommand}"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="20" Margin="106,46,0,0" TextWrapping="Wrap" Text="{Binding Server.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120"/>
+        <Label x:Name="label" Content="Type hostname or IP of the new host" HorizontalAlignment="Left" Margin="18,26,0,0" VerticalAlignment="Top" Width="208" Height="15" Padding="0" FontWeight="Bold"/>
     </Grid>
 </Window>
