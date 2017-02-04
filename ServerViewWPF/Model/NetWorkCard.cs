@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ServerViewWPF.Model
 {
-    class NetWorkCard
+    public class NetWorkCard
     {
         string ipAddress;
         string macAddress;

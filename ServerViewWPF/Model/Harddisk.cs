@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ServerViewWPF.Model
 {
-    class Harddisk
+    public class Harddisk
     {
         string driveLetter;
         long mbSize;

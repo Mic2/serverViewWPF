@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ServerViewWPF.Model
 {
-    class Server
+    public class Server
     {
         string name;
         string mac;
