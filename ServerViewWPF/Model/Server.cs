@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 
@@ -13,11 +14,11 @@ namespace ServerViewWPF.Model
         long ram;
         string osVer;
         List<NetWorkCard> netWorkCard;
-        List<Harddisk> hdd;
+        ObservableCollection<Harddisk> hdd;
         public Server()
         {
             netWorkCard = new List<NetWorkCard>();
-            hdd = new List<Harddisk>();
+            hdd = new ObservableCollection<Harddisk>();
         }
         public string Name
         {
@@ -49,7 +50,7 @@ namespace ServerViewWPF.Model
             get { return netWorkCard; }
             set { netWorkCard = value; }
         }
-        internal List<Harddisk> Hdd
+        internal ObservableCollection<Harddisk> Hdd
         {
             get { return hdd; }
             set { hdd = value; }
