@@ -7,9 +7,9 @@ using System.Management;
 
 namespace ServerViewWPF.ViewModel
 {
-    class WMIManager
+    public class WMIManager
     {
-        Server WMICall(string servername)
+        public Server WMICall(string servername)
         {
             // Create Server obj.
             Server server = new Server();

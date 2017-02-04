@@ -54,6 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModel\DalManager.cs" />
     <Compile Include="ViewModel\Server.ViewModel.cs" />
     <Compile Include="ViewModel\WMIManager.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
