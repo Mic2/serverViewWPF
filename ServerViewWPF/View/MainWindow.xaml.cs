@@ -10,6 +10,7 @@ namespace ServerViewWPF
         public MainWindow()
         {
             InitializeComponent();
+            //DebugConsole.CreateConsole();
         }
     }
 }
