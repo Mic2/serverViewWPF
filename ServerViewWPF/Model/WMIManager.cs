@@ -24,7 +24,6 @@ namespace ServerViewWPF.ViewModel
             try
             {
                 scope.Connect();
-
                 //Query system for Operating System information
                 ObjectQuery OSquery = new ObjectQuery("SELECT * FROM Win32_OperatingSystem");
                 ManagementObjectSearcher OSsearcher = new ManagementObjectSearcher(scope, OSquery);
