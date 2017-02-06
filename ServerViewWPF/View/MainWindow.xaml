@@ -20,6 +20,10 @@
                     <GridViewColumn DisplayMemberBinding="{Binding Name, Mode=OneWay}" Header="Hostname"/>
                     <GridViewColumn DisplayMemberBinding="{Binding OsVer, Mode=OneWay}" Header="OS Version"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Ram, Mode=OneWay}" Header="RAM"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Hdd/DriveLetter}" Header="HDD DriveLetter"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Hdd/MbSize}" Header="HDD Mb Size"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding NetWorkCard/IpAddress}" Header="IP Address"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding NetWorkCard/MacAddress}" Header="MAC Address"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Status, Mode=OneWay}" Header="Status"/>
                 </GridView>
             </ListView.View>

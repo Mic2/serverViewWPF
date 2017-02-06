@@ -14,11 +14,11 @@ namespace ServerViewWPF.Model
         long ram;
         string osVer;
         List<NetWorkCard> netWorkCard;
-        ObservableCollection<Harddisk> hdd;
+        List<Harddisk> hdd = new List<Harddisk>();
         public Server()
         {
             netWorkCard = new List<NetWorkCard>();
-            hdd = new ObservableCollection<Harddisk>();
+            
         }
         public string Name
         {
@@ -45,12 +45,12 @@ namespace ServerViewWPF.Model
             get { return osVer; }
             set { osVer = value; }
         }
-        internal List<NetWorkCard> NetWorkCard
+        public List<NetWorkCard> NetWorkCard
         {
             get { return netWorkCard; }
             set { netWorkCard = value; }
         }
-        internal ObservableCollection<Harddisk> Hdd
+        public List<Harddisk> Hdd
         {
             get { return hdd; }
             set { hdd = value; }
