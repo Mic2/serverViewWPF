@@ -26,6 +26,8 @@ namespace ServerViewWPF.ViewModel
         public ServerViewModel()
         {
             AddHostCommand = new RelayCommand(AddNewHost, param => true);
+
+            serverList = DalManager.Instance.GetAllServers();
         }
 
         public void AddNewHost(object obj)
@@ -42,7 +44,11 @@ namespace ServerViewWPF.ViewModel
                 if(hostValues != null)
                 {
                     server = hostValues;
+                    server.Status = "prod";
+                    // serverList.Add(server);
+                    server = DalManager.Instance.CheckServer(server);
                     serverList.Add(server);
+                    //serverList = DalManager.Instance.GetAllServers();
                 }
             }
             

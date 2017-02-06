@@ -1,6 +1,7 @@
 ﻿using ServerViewWPF.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -178,8 +179,9 @@ namespace ServerViewWPF.ViewModel
                 else
                 {
                     //add new info about the server
-                    SetServer(server);
                     s = server;
+                    SetServer(s);
+                    
                 }
             }
             catch (Exception ex)
@@ -196,13 +198,13 @@ namespace ServerViewWPF.ViewModel
         }
 
         //returns a list of all servers
-        public List<Server> GetAllServers()
+        public ObservableCollection<Server> GetAllServers()
         {
             string queryString_getServes = "SELECT * FROM dbo.Server";
 
             SqlConnection sqlCon = ConnectDB();
             SqlCommand command_getServes = new SqlCommand(queryString_getServes, sqlCon);
-            List<Server> servers = new List<Server>();
+            ObservableCollection<Server> servers = new ObservableCollection<Server>();
 
             sqlCon.Open();
 
