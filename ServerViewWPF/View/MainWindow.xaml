@@ -14,11 +14,11 @@
         <Button x:Name="button" Content="Add new host" HorizontalAlignment="Left" Margin="0,20,0,0" VerticalAlignment="Top" Width="88" Command="{Binding AddHostCommand}"/>
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="20" Margin="88,20,0,0" TextWrapping="Wrap" Text="{Binding Server.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120"/>
         <Label x:Name="label" Content="Type hostname or IP of the new host" HorizontalAlignment="Left" VerticalAlignment="Top" Width="208" Height="15" Padding="0" FontWeight="Bold"/>
-        <ListView x:Name="listView" Margin="0,130,0.4,0" VerticalAlignment="Top" ItemsSource="{Binding ServerList, Mode=OneWay}">
+        <ListView x:Name="listView" Margin="0,130,0.4,0" VerticalAlignment="Top" ItemsSource="{Binding ServerList, Mode=OneWay}" >
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Name, Mode=OneWay}" Header="Hostname"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding OsVer, Mode=OneWay}" Header="OS Version"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Name, Mode=OneWay}" Header="Hostname" Width="180"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding OsVer, Mode=OneWay}" Header="OS Version" Width="250"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Ram, Mode=OneWay}" Header="RAM"/>
                     <GridViewColumn Header="HDD DriveLetter" >
                         <GridViewColumn.CellTemplate>
@@ -80,7 +80,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Status, Mode=OneWay}" Header="Status"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Status, Mode=OneWay}" Header="Status" Width="150"/>
                 </GridView>
             </ListView.View>
         </ListView>

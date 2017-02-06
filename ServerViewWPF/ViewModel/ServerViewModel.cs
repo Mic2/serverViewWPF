@@ -45,10 +45,10 @@ namespace ServerViewWPF.ViewModel
                 {
                     server = hostValues;
                     server.Status = "prod";
-                    // serverList.Add(server);
+                    
                     server = DalManager.Instance.CheckServer(server);
-                    serverList.Add(server);
-                    //serverList = DalManager.Instance.GetAllServers();
+                    serverList = DalManager.Instance.GetAllServers();
+
                 }
             }
             
