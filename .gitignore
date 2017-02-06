@@ -243,3 +243,6 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+ServerViewWPF/DebugConsole.cs
+ServerViewWPF/ServerViewWPF.csproj
+ServerViewWPF/View/MainWindow.xaml.cs
