@@ -39,7 +39,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel>
-                                    <ItemsControl ItemsSource="{Binding Hdd}">
+                                    <ItemsControl ItemsSource="{Binding Hdd}"> 
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
                                                 <TextBlock Text="{Binding MbSize}" />

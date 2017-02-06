@@ -43,11 +43,6 @@ namespace ServerViewWPF.ViewModel
                 {
                     server = hostValues;
                     serverList.Add(server);
-
-                    foreach(Harddisk hdd in server.Hdd )
-                    {
-                        Debug.WriteLine(hdd.DriveLetter);
-                    }
                 }
             }
             
