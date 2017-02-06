@@ -213,7 +213,7 @@ namespace ServerViewWPF.ViewModel
 
                 while (reader.Read())
                 {
-                    Console.WriteLine("Reading " + reader[0].ToString().Trim());
+                    //Console.WriteLine("Reading " + reader[0].ToString().Trim());
                     Server server = new Server();
 
                     server.Name = reader[0].ToString();
@@ -237,19 +237,21 @@ namespace ServerViewWPF.ViewModel
                     {
                         //create a new netcard and add it to the server
                         NetWorkCard Card = new NetWorkCard();
-                        Console.BackgroundColor = ConsoleColor.DarkBlue;
-                        Console.WriteLine("Reading NetCard ID " + reader[0].ToString().Trim() + " for " + reader[3].ToString().Trim() + ". Current Server: " + servers[i].Name.ToString().Trim());
-                        Console.ResetColor();
+
+                        //Console.BackgroundColor = ConsoleColor.DarkBlue;
+                        //Console.WriteLine("Reading NetCard ID " + reader[0].ToString().Trim() + " for " + reader[3].ToString().Trim() + ". Current Server: " + servers[i].Name.ToString().Trim());
+                        //Console.ResetColor();
 
                         Card.IpAddress = reader[1].ToString();
                         Card.MacAddress = reader[2].ToString();
                         servers[i].NetWorkCard.Add(Card);
 
-                        Console.WriteLine("Server " + servers[i].Name.ToString().Trim() + " now has " + servers[i].NetWorkCard.Count.ToString().Trim() + " netcards.");
-                        foreach (NetWorkCard n in servers[i].NetWorkCard)
-                        {
-                            Console.WriteLine("IP: " + n.IpAddress.ToString().Trim() + " MAC:" + n.MacAddress.ToString().Trim());
-                        }
+                        ////Get info for everything
+                        //Console.WriteLine("Server " + servers[i].Name.ToString().Trim() + " now has " + servers[i].NetWorkCard.Count.ToString().Trim() + " netcards.");
+                        //foreach (NetWorkCard n in servers[i].NetWorkCard)
+                        //{
+                        //    Console.WriteLine("IP: " + n.IpAddress.ToString().Trim() + " MAC:" + n.MacAddress.ToString().Trim());
+                        //}
                     }
                 }
 
@@ -266,19 +268,21 @@ namespace ServerViewWPF.ViewModel
                     {
                         //create a new hdd and add it to the server
                         Harddisk hdd = new Harddisk();
-                        Console.BackgroundColor = ConsoleColor.DarkBlue;
-                        Console.WriteLine("Reading HDD ID " + reader[0].ToString().Trim() + " for " + reader[3].ToString().Trim() + ". Current Server: " + servers[i].Name.ToString().Trim());
-                        Console.ResetColor();
+
+                        //Console.BackgroundColor = ConsoleColor.DarkBlue;
+                        //Console.WriteLine("Reading HDD ID " + reader[0].ToString().Trim() + " for " + reader[3].ToString().Trim() + ". Current Server: " + servers[i].Name.ToString().Trim());
+                        //Console.ResetColor();
 
                         hdd.DriveLetter = reader[1].ToString();
                         hdd.MbSize = (int)reader[2];
                         servers[i].Hdd.Add(hdd);
 
-                        Console.WriteLine("Server " + servers[i].Name.ToString().Trim() + " now has " + servers[i].Hdd.Count.ToString().Trim() + " Hdd's.");
-                        foreach (Harddisk h in servers[i].Hdd)
-                        {
-                            Console.WriteLine("Drive letter: " + h.DriveLetter.ToString().Trim() + " Size: " + h.MbSize.ToString().Trim());
-                        }
+                        ////Get info for everything
+                        //Console.WriteLine("Server " + servers[i].Name.ToString().Trim() + " now has " + servers[i].Hdd.Count.ToString().Trim() + " Hdd's.");
+                        //foreach (Harddisk h in servers[i].Hdd)
+                        //{
+                        //    Console.WriteLine("Drive letter: " + h.DriveLetter.ToString().Trim() + " Size: " + h.MbSize.ToString().Trim());
+                        //}
                     }
 
                     reader.Close();
