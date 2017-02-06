@@ -57,7 +57,7 @@
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="ViewModel\DalManager.cs" />
     <Compile Include="ViewModel\ServerViewModel.cs" />
-    <Compile Include="ViewModel\WMIManager.cs" />
+    <Compile Include="Model\WMIManager.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
