@@ -14,14 +14,42 @@
         <Button x:Name="button" Content="Add new host" HorizontalAlignment="Left" Margin="0,20,0,0" VerticalAlignment="Top" Width="88" Command="{Binding AddHostCommand}"/>
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="20" Margin="88,20,0,0" TextWrapping="Wrap" Text="{Binding Server.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120"/>
         <Label x:Name="label" Content="Type hostname or IP of the new host" HorizontalAlignment="Left" VerticalAlignment="Top" Width="208" Height="15" Padding="0" FontWeight="Bold"/>
-        <ListView x:Name="listView" Margin="0,130,0,0" VerticalAlignment="Top" ItemsSource="{Binding ServerList, Mode=OneWay}">
+        <ListView x:Name="listView" Margin="0,130,0,0" VerticalAlignment="Top" ItemsSource="{Binding ServerList, Mode=OneWay}" Height="200">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Name, Mode=OneWay}" Header="Hostname"/>
                     <GridViewColumn DisplayMemberBinding="{Binding OsVer, Mode=OneWay}" Header="OS Version"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Ram, Mode=OneWay}" Header="RAM"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Hdd/DriveLetter}" Header="HDD DriveLetter"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Hdd/MbSize}" Header="HDD Mb Size"/>
+                    <GridViewColumn Header="HDD DriveLetter" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <ItemsControl ItemsSource="{Binding Hdd}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding DriveLetter}" />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="HDD Mb Size" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <ItemsControl ItemsSource="{Binding Hdd}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding MbSize}" />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding NetWorkCard/IpAddress}" Header="IP Address"/>
                     <GridViewColumn DisplayMemberBinding="{Binding NetWorkCard/MacAddress}" Header="MAC Address"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Status, Mode=OneWay}" Header="Status"/>
