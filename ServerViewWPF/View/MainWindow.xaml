@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:ServerViewWPF"
         xmlns:ViewModel="clr-namespace:ServerViewWPF.ViewModel" x:Class="ServerViewWPF.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" SizeToContent="WidthAndHeight" Icon="Icon.ico" >
+        Title="Server View 1.0" SizeToContent="WidthAndHeight" 
+        Icon="Icon.ico">
     <Window.DataContext>
         <ViewModel:ServerViewModel/>
     </Window.DataContext>
@@ -17,8 +18,8 @@
                 <GradientStop Color="#FFACACAC" Offset="0.307"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Button x:Name="button" Content="Add new host" HorizontalAlignment="Left" Margin="0,20,0,0" VerticalAlignment="Top" Width="88" Command="{Binding AddHostCommand}"/>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="20" Margin="88,20,0,0" TextWrapping="Wrap" Text="{Binding Server.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="button" Content="Add new host" HorizontalAlignment="Left" Margin="0,20,0,0" VerticalAlignment="Top" Width="88" Command="{Binding AddHostCommand}" ToolTip="Pulls info about the requested server and adds it to the database"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="20" Margin="88,20,0,0" TextWrapping="Wrap" Text="{Binding Server.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120" ToolTip="Type the hostname or IP of a server then press &quot;Add new host&quot;"/>
         <Label x:Name="label" Content="Type hostname or IP of the new host" HorizontalAlignment="Left" VerticalAlignment="Top" Width="208" Height="15" Padding="0" FontWeight="Bold"/>
         <ListView x:Name="listView" Margin="0,130,0.4,0" VerticalAlignment="Top" ItemsSource="{Binding ServerList, Mode=OneWay}" Background="#FFCCD8DE" >
             <ListView.View>
