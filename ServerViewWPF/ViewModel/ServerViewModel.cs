@@ -19,6 +19,9 @@ namespace ServerViewWPF.ViewModel
         // This list will hold all the servers that is placed inside our db
         private ObservableCollection<Server> serverList = new ObservableCollection<Server>();
 
+        // Validation variable for checking if the server is inside the list or not.
+        private bool serverInList = false;
+
         public event PropertyChangedEventHandler PropertyChanged;
         private ICommand addHostCommand;
 
@@ -43,18 +46,24 @@ namespace ServerViewWPF.ViewModel
                 // Handling if WMI failes to get values from host
                 if(hostValues != null)
                 {
-                    server = hostValues;
-                    server.Status = "prod";
-                    
-                    server = DalManager.Instance.CheckServer(server);
-                    serverList = DalManager.Instance.GetAllServers();
 
+                    // Lets check if the server is in the list already
+                    // If not then we add the server to the list
+                    foreach (Server s in serverList) {
+                        if (hostValues.Name == s.Name) {
+                            serverInList = true;
+                        }
+                    }
+
+                    if (!serverInList)
+                    {
+                        server = hostValues;
+                        server.Status = "Prod";
+                        server = DalManager.Instance.CheckServer(server);
+                        serverList.Add(server);
+                    }                       
                 }
             }
-            
-
-            // Debug.WriteLine("Button pressed - Name of server is: " + server.Name);
-            // Debug.WriteLine(server.OsVer);
         }
 
         public Server Server

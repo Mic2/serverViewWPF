@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ServerViewWPF"
         xmlns:ViewModel="clr-namespace:ServerViewWPF.ViewModel" x:Class="ServerViewWPF.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" SizeToContent="WidthAndHeight" >
     <Window.DataContext>
         <ViewModel:ServerViewModel/>
     </Window.DataContext>
