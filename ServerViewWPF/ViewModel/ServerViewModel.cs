@@ -83,6 +83,9 @@ namespace ServerViewWPF.ViewModel
             // Making sure that we have a value to search for.
             if(!string.IsNullOrEmpty(server.Name))
             {
+                // Resetting the check
+                serverInList = false;
+
                 WMIManager wm = new WMIManager();
                 Server hostValues = wm.WMICall(server.Name);
 
