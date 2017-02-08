@@ -1,16 +1,12 @@
 ﻿using ServerViewWPF.Common;
 using ServerViewWPF.Model;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Threading;
 
 namespace ServerViewWPF.ViewModel
 {
