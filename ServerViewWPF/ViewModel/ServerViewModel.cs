@@ -7,7 +7,10 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace ServerViewWPF.ViewModel
 {
@@ -17,11 +20,13 @@ namespace ServerViewWPF.ViewModel
         private Server server = new Server();
 
         // This list will hold all the servers that is placed inside our db
-        private ObservableCollection<Server> serverList = new ObservableCollection<Server>();
+        private static ObservableCollection<Server> serverList = new ObservableCollection<Server>();
 
         // Validation variable for checking if the server is inside the list or not.
         private bool serverInList = false;
 
+        Thread updateServerListThread = new Thread(startServerListUpdate);
+   
         public event PropertyChangedEventHandler PropertyChanged;
         private ICommand addHostCommand;
 
@@ -31,6 +36,48 @@ namespace ServerViewWPF.ViewModel
             AddHostCommand = new RelayCommand(AddNewHost, param => true);
 
             serverList = DalManager.Instance.GetAllServers();
+
+            // Starting the Thread that listens for new info in DB
+            updateServerListThread.Start();
+            
+        }
+
+        public static void startServerListUpdate()
+        {
+            while (true)
+            {
+
+                ObservableCollection<Server> serversFromDb = DalManager.Instance.GetAllServers();
+                CompareServerLists cs = new CompareServerLists();
+                cs.GatherServerNames(serverList, serversFromDb);
+
+                foreach (Server server in cs.ServersToAdd)
+                {
+                    ThreadPool.QueueUserWorkItem(delegate
+                    {
+                        // Use the Dispatcher to push this to the UI thread
+                        Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                        {
+                            serverList.Add(server);
+                        }));
+                    });
+                }
+
+                foreach (Server server in cs.ServersToRemove)
+                {
+                    ThreadPool.QueueUserWorkItem(delegate
+                    {
+                        // Use the Dispatcher to push this to the UI thread
+                        Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                        {
+                            serverList.Remove(server);
+                        }));
+                    });  
+                }
+
+                Debug.WriteLine("Thread is running");
+                Thread.Sleep(10000);
+            }
         }
 
         public void AddNewHost(object obj)

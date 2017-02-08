@@ -59,6 +59,7 @@
     </ApplicationDefinition>
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Model\DalManager.cs" />
+    <Compile Include="Model\CompareServerLists.cs" />
     <Compile Include="ViewModel\ServerViewModel.cs" />
     <Compile Include="Model\WMIManager.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
