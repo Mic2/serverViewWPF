@@ -33,9 +33,9 @@ namespace ServerViewWPF.ViewModel
         // Default constructor
         public ServerViewModel()
         {
-            AddHostCommand = new RelayCommand(AddNewHost, param => true);
-
             serverList = DalManager.Instance.GetAllServers();
+
+            AddHostCommand = new RelayCommand(AddNewHost, param => true);
 
             // Starting the Thread that listens for new info in DB
             updateServerListThread.Start();
@@ -95,13 +95,14 @@ namespace ServerViewWPF.ViewModel
                 {
 
                     // Lets check if the server is in the list already
-                    // If not then we add the server to the list
                     foreach (Server s in serverList) {
-                        if (hostValues.Name == s.Name) {
+                        // We need to trim since s.Name is equal 250 length "DONT KNOW WHY"
+                        if (hostValues.Name == s.Name.Trim()) {
                             serverInList = true;
                         }
                     }
 
+                    // If the server is not in the list, we create it in DB and adds it to the list
                     if (!serverInList)
                     {
                         server = hostValues;
