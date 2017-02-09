@@ -25,6 +25,7 @@ namespace ServerViewWPF.ViewModel
    
         public event PropertyChangedEventHandler PropertyChanged;
         private ICommand addHostCommand;
+        private ICommand removeHostsCommand;
 
         // Default constructor
         public ServerViewModel()
@@ -32,10 +33,28 @@ namespace ServerViewWPF.ViewModel
             serverList = DalManager.Instance.GetAllServers();
 
             AddHostCommand = new RelayCommand(AddNewHost, param => true);
+            RemoveHostsCommand = new RelayCommand(RemoveHosts, param => true);
 
             // Starting the Thread that listens for new info in DB
             updateServerListThread.Start();
             
+        }
+
+        public void RemoveHosts(object selectedItems)
+        {
+            var itemsFromList = (System.Collections.IList)selectedItems;
+            ObservableCollection<Server> serversToRemove = new ObservableCollection<Server>();
+
+            foreach (Server server in itemsFromList)
+            {
+                serversToRemove.Add(server);
+            }
+
+            foreach (Server server in serversToRemove)
+            {
+                ServerList.Remove(server);
+                DalManager.Instance.DeleteServer(server);
+            }
         }
 
         public static void startServerListUpdate()
@@ -151,6 +170,19 @@ namespace ServerViewWPF.ViewModel
             set
             {
                 addHostCommand = value;
+            }
+        }
+
+        public ICommand RemoveHostsCommand
+        {
+            get
+            {
+                return removeHostsCommand;
+            }
+
+            set
+            {
+                removeHostsCommand = value;
             }
         }
 
