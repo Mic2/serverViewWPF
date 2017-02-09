@@ -13,10 +13,7 @@ namespace ServerViewWPF.ViewModel
     {
         //singleton
         private static DalManager _instance = null;
-        private DalManager()
-        {
-
-        }
+        private DalManager(){}
         public static DalManager Instance
         {
             get
@@ -44,7 +41,6 @@ namespace ServerViewWPF.ViewModel
             SqlConnection myConnection = new SqlConnection(connectionString);
             return myConnection;
         }
-        //retive data and send it to the requester
         public Server GetServer(string hostname)
         {
             Server server = new Server();
@@ -151,7 +147,6 @@ namespace ServerViewWPF.ViewModel
                 myConnection.Close();
             }
         }
-
         //checks if the requested server exists in the db
         //calls getServer if it does
         //calls setSever if it does not
@@ -193,10 +188,8 @@ namespace ServerViewWPF.ViewModel
             {
                 sqlCon.Close();
             }
-
             return s;
         }
-
         //returns a list of all servers
         public ObservableCollection<Server> GetAllServers()
         {
@@ -207,15 +200,12 @@ namespace ServerViewWPF.ViewModel
             ObservableCollection<Server> servers = new ObservableCollection<Server>();
 
             sqlCon.Open();
-
             try
             {
                 //get servers
                 SqlDataReader reader = command_getServes.ExecuteReader();
-
                 while (reader.Read())
                 {
-                    //Console.WriteLine("Reading " + reader[0].ToString().Trim());
                     Server server = new Server();
 
                     server.Name = reader[0].ToString();
@@ -225,8 +215,6 @@ namespace ServerViewWPF.ViewModel
 
                     servers.Add(server);
                 }
-
-
                 //get networks cards
                 for (int i = 0; i < servers.Count; i++)
                 {
@@ -240,20 +228,9 @@ namespace ServerViewWPF.ViewModel
                         //create a new netcard and add it to the server
                         NetWorkCard Card = new NetWorkCard();
 
-                        //Console.BackgroundColor = ConsoleColor.DarkBlue;
-                        //Console.WriteLine("Reading NetCard ID " + reader[0].ToString().Trim() + " for " + reader[3].ToString().Trim() + ". Current Server: " + servers[i].Name.ToString().Trim());
-                        //Console.ResetColor();
-
                         Card.IpAddress = reader[1].ToString();
                         Card.MacAddress = reader[2].ToString();
                         servers[i].NetWorkCard.Add(Card);
-
-                        ////Get info for everything
-                        //Console.WriteLine("Server " + servers[i].Name.ToString().Trim() + " now has " + servers[i].NetWorkCard.Count.ToString().Trim() + " netcards.");
-                        //foreach (NetWorkCard n in servers[i].NetWorkCard)
-                        //{
-                        //    Console.WriteLine("IP: " + n.IpAddress.ToString().Trim() + " MAC:" + n.MacAddress.ToString().Trim());
-                        //}
                     }
                 }
 
@@ -271,20 +248,9 @@ namespace ServerViewWPF.ViewModel
                         //create a new hdd and add it to the server
                         Harddisk hdd = new Harddisk();
 
-                        //Console.BackgroundColor = ConsoleColor.DarkBlue;
-                        //Console.WriteLine("Reading HDD ID " + reader[0].ToString().Trim() + " for " + reader[3].ToString().Trim() + ". Current Server: " + servers[i].Name.ToString().Trim());
-                        //Console.ResetColor();
-
                         hdd.DriveLetter = reader[1].ToString();
                         hdd.MbSize = (int)reader[2];
                         servers[i].Hdd.Add(hdd);
-
-                        ////Get info for everything
-                        //Console.WriteLine("Server " + servers[i].Name.ToString().Trim() + " now has " + servers[i].Hdd.Count.ToString().Trim() + " Hdd's.");
-                        //foreach (Harddisk h in servers[i].Hdd)
-                        //{
-                        //    Console.WriteLine("Drive letter: " + h.DriveLetter.ToString().Trim() + " Size: " + h.MbSize.ToString().Trim());
-                        //}
                     }
 
                     reader.Close();
@@ -300,6 +266,50 @@ namespace ServerViewWPF.ViewModel
             }
 
             return servers;
+        }
+        public void DeleteServer(Server server)
+        {
+            SqlConnection myConnection = ConnectDB();
+            try
+            {
+                string queryString = "DELETE from dbo.netcard WHERE SFK_ID = '" + server.Name + "'";
+                SqlCommand command = new SqlCommand(queryString, myConnection);
+                myConnection.Open();
+                command.ExecuteNonQuery();
+                myConnection.Close();
+                // Delete Networkcard where SFK_ID == server.name
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            //myConnection.Open();
+            try
+            {
+                string queryString = "DELETE from dbo.Hdd WHERE SFK_ID = '" + server.Name + "'";
+                SqlCommand command = new SqlCommand(queryString, myConnection);
+                myConnection.Open();
+                command.ExecuteNonQuery();
+                myConnection.Close();
+                // Delete HHD where SFK_ID == server.name
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            try
+            {
+                string queryString = "DELETE from dbo.server WHERE name = '" + server.Name + "'";
+                SqlCommand command = new SqlCommand(queryString, myConnection);
+                myConnection.Open();
+                command.ExecuteNonQuery();
+                myConnection.Close();
+                // Delete Server where name == server.name
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }
