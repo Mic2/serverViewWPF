@@ -7,7 +7,7 @@
         xmlns:ViewModel="clr-namespace:ServerViewWPF.ViewModel" x:Class="ServerViewWPF.MainWindow"
         mc:Ignorable="d"
         Title="Server View 1.0" SizeToContent="WidthAndHeight" 
-        Icon="Icon.ico">
+        Icon="Icon.ico" Height="228.88">
     <Window.DataContext>
         <ViewModel:ServerViewModel/>
     </Window.DataContext>
@@ -15,83 +15,93 @@
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="#FFE2E2E2" Offset="0"/>
-                <GradientStop Color="#FFACACAC" Offset="0.307"/>
+                <GradientStop Color="#FFACACAC" Offset="0.296"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Button x:Name="button" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" Width="88" Command="{Binding AddHostCommand}" ToolTip="Pulls info about the requested server and adds it to the database" Content="Add new host" Background="#FF8EC320" Foreground="#FFFFFBFB"/>
+        <Button x:Name="button" HorizontalAlignment="Left" Margin="5,30,0,0" VerticalAlignment="Top" Width="88" Command="{Binding AddHostCommand}" ToolTip="Pulls info about the requested server and adds it to the database" Content="Add new host" Background="#FF8EC320" Foreground="#FFFFFBFB"/>
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="20" Margin="98,30,0,0" TextWrapping="Wrap" Text="{Binding Server.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120" ToolTip="Type the hostname or IP of a server then press &quot;Add new host&quot;"/>
         <Label x:Name="label" Content="Type hostname or IP of the new host" HorizontalAlignment="Left" VerticalAlignment="Top" Width="208" Height="15" Padding="0" FontWeight="Bold" Margin="10,10,0,0"/>
-        <ListView x:Name="listView" Margin="0,130,0.4,20" VerticalAlignment="Top" ItemsSource="{Binding ServerList, Mode=OneWay}" Background="#FFCCD8DE" SelectionMode="Multiple" BorderBrush="#FF1D2431" >
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Name, Mode=OneWay}" Header="Hostname" Width="180"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding OsVer, Mode=OneWay}" Header="OS Version" Width="250"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Ram, Mode=OneWay}" Header="RAM"/>
-                    <GridViewColumn Header="HDD DriveLetter" >
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel>
-                                    <ItemsControl ItemsSource="{Binding Hdd}">
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding DriveLetter}" />
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-                                </StackPanel>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="HDD Mb Size" >
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel>
-                                    <ItemsControl ItemsSource="{Binding Hdd}">
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding MbSize}" />
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-                                </StackPanel>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="IP Address" >
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel>
-                                    <ItemsControl ItemsSource="{Binding NetWorkCard}">
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding IpAddress}" />
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-                                </StackPanel>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="MAC Address" >
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel>
-                                    <ItemsControl ItemsSource="{Binding NetWorkCard}">
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding MacAddress}" />
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-                                </StackPanel>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Status, Mode=OneWay}" Header="Status" Width="150"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <Button CommandParameter="{Binding ElementName=listView, Path=SelectedItems}" Command="{Binding RemoveHostsCommand}" x:Name="removeItems" Content="Delete selected" HorizontalAlignment="Left" Margin="136,95,0,0" VerticalAlignment="Top" Width="108" Background="#FFCB1919" Foreground="White"/>
-        <Button CommandParameter="{Binding ElementName=listView, Path=SelectedItems}" Command="{Binding UpdateHostsCommand}" x:Name="button2" Content="Update selected" HorizontalAlignment="Left" Margin="10,95,0,0" VerticalAlignment="Top" Width="111" Background="#FFE2952D" Foreground="White"/>
+        <Grid Margin="0,130,0,20" ShowGridLines="True">
+            <ListView x:Name="listView" ItemsSource="{Binding ServerList, Mode=OneWay}" Background="#FFCCD8DE" SelectionMode="Multiple" BorderBrush="#FF1D2431" BorderThickness="2" Foreground="#FF042271" Margin="0,-76,0,0">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding Name, Mode=OneWay}" Header="Hostname" Width="120" />
+                        <GridViewColumn DisplayMemberBinding="{Binding OsVer, Mode=OneWay}" Header="OS Version" Width="190"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Ram, Mode=OneWay}" Header="Mb Ram" Width="50"/>
+                        <GridViewColumn Header="Drives" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <Border x:Name="border" BorderBrush="Red" BorderThickness="1" Padding="5" Margin="5">
+                                            <ItemsControl ItemsSource="{Binding Hdd}">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding DriveLetter}" Width="20"/>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </Border>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Mb Size" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <Border x:Name="border" BorderBrush="Red" BorderThickness="1" Padding="5" Margin="5">
+                                            <ItemsControl ItemsSource="{Binding Hdd}">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding MbSize}" Width="40"/>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </Border>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="IP Address" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <Border x:Name="border" BorderBrush="Red" BorderThickness="1" Padding="5" Margin="5">
+                                            <ItemsControl ItemsSource="{Binding NetWorkCard}">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding IpAddress}" Width="100"/>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </Border>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="MAC Address" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <Border x:Name="border" BorderBrush="Red" BorderThickness="1" Padding="5" Margin="5">
+                                            <ItemsControl ItemsSource="{Binding NetWorkCard}">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding MacAddress}" Width="100"/>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </Border>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Status, Mode=OneWay}" Header="Status" Width="40"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+        <Button CommandParameter="{Binding ElementName=listView, Path=SelectedItems}" Command="{Binding RemoveHostsCommand}" x:Name="removeItems" Content="Delete selected" HorizontalAlignment="Right" Margin="0,30,10,0" VerticalAlignment="Top" Width="108" Background="#FFCB1919" Foreground="White"/>
+        <Button CommandParameter="{Binding ElementName=listView, Path=SelectedItems}" Command="{Binding UpdateHostsCommand}" x:Name="button2" Content="Update selected" HorizontalAlignment="Left" Margin="223,30,0,0" VerticalAlignment="Top" Width="111" Background="#FFE2952D" Foreground="White"/>
     </Grid>
 </Window>
