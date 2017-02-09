@@ -35,6 +35,7 @@ namespace ServerViewWPF.ViewModel
             RemoveHostsCommand = new RelayCommand(RemoveHosts, param => true);
             UpdateHostsCommand = new RelayCommand(UpdateHosts, param => true);
 
+            updateServerListThread.IsBackground = true;
             // Starting the Thread that listens for new info in DB
             updateServerListThread.Start();
             
@@ -54,13 +55,13 @@ namespace ServerViewWPF.ViewModel
 
             foreach (Server server in serversToUpdate)
             {
-                ServerList.Remove(server);
-                DalManager.Instance.DeleteServer(server);
+                
                 Server hostValues = wm.WMICall(server.Name.Trim());
 
                 if (hostValues != null)
                 {
-
+                    ServerList.Remove(server);
+                    DalManager.Instance.DeleteServer(server);
                     // Validation variable for checking if the server is inside the list or not.
                     bool serverInList = false;
 
