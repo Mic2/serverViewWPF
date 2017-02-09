@@ -18,14 +18,13 @@ namespace ServerViewWPF.ViewModel
         // This list will hold all the servers that is placed inside our db
         private static ObservableCollection<Server> serverList = new ObservableCollection<Server>();
 
-        // Validation variable for checking if the server is inside the list or not.
-        private bool serverInList = false;
-
         Thread updateServerListThread = new Thread(startServerListUpdate);
    
         public event PropertyChangedEventHandler PropertyChanged;
+
         private ICommand addHostCommand;
         private ICommand removeHostsCommand;
+        private ICommand updateHostsCommand;
 
         // Default constructor
         public ServerViewModel()
@@ -34,10 +33,56 @@ namespace ServerViewWPF.ViewModel
 
             AddHostCommand = new RelayCommand(AddNewHost, param => true);
             RemoveHostsCommand = new RelayCommand(RemoveHosts, param => true);
+            UpdateHostsCommand = new RelayCommand(UpdateHosts, param => true);
 
             // Starting the Thread that listens for new info in DB
             updateServerListThread.Start();
             
+        }
+
+        public void UpdateHosts(object selectedItems)
+        {
+            Debug.WriteLine("Update triggered");
+            var itemsFromList = (System.Collections.IList)selectedItems;
+            ObservableCollection<Server> serversToUpdate = new ObservableCollection<Server>();
+            WMIManager wm = new WMIManager();
+
+            foreach (Server server in itemsFromList)
+            {
+                serversToUpdate.Add(server);
+            }
+
+            foreach (Server server in serversToUpdate)
+            {
+                ServerList.Remove(server);
+                DalManager.Instance.DeleteServer(server);
+                Server hostValues = wm.WMICall(server.Name.Trim());
+
+                if (hostValues != null)
+                {
+
+                    // Validation variable for checking if the server is inside the list or not.
+                    bool serverInList = false;
+
+                    // Lets check if the server is in the list already
+                    foreach (Server s in serverList)
+                    {
+                        // We need to trim since s.Name is equal 250 length "DONT KNOW WHY"
+                        if (hostValues.Name == s.Name.Trim())
+                        {
+                            serverInList = true;
+                        }
+                    }
+
+                    if(!serverInList)
+                    {
+                        Debug.WriteLine("We are in here");
+                        hostValues.Status = "Prod";
+                        Server updatedServer = DalManager.Instance.CheckServer(hostValues);
+                        serverList.Add(updatedServer);
+                    }  
+                }
+            }
         }
 
         public void RemoveHosts(object selectedItems)
@@ -102,8 +147,8 @@ namespace ServerViewWPF.ViewModel
             // Making sure that we have a value to search for.
             if(!string.IsNullOrEmpty(server.Name))
             {
-                // Resetting the check
-                serverInList = false;
+                // Validation variable for checking if the server is inside the list or not.
+                bool serverInList = false;
 
                 WMIManager wm = new WMIManager();
                 Server hostValues = wm.WMICall(server.Name);
@@ -183,6 +228,19 @@ namespace ServerViewWPF.ViewModel
             set
             {
                 removeHostsCommand = value;
+            }
+        }
+
+        public ICommand UpdateHostsCommand
+        {
+            get
+            {
+                return updateHostsCommand;
+            }
+
+            set
+            {
+                updateHostsCommand = value;
             }
         }
 

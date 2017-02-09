@@ -18,7 +18,7 @@
                 <GradientStop Color="#FFACACAC" Offset="0.307"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Button x:Name="button" Content="{Binding AddHostCommand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="0,20,0,0" VerticalAlignment="Top" Width="88" Command="{Binding AddHostCommand}" ToolTip="Pulls info about the requested server and adds it to the database"/>
+        <Button x:Name="button" HorizontalAlignment="Left" Margin="0,20,0,0" VerticalAlignment="Top" Width="88" Command="{Binding AddHostCommand}" ToolTip="Pulls info about the requested server and adds it to the database" Content="Add new host"/>
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="20" Margin="88,20,0,0" TextWrapping="Wrap" Text="{Binding Server.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120" ToolTip="Type the hostname or IP of a server then press &quot;Add new host&quot;"/>
         <Label x:Name="label" Content="Type hostname or IP of the new host" HorizontalAlignment="Left" VerticalAlignment="Top" Width="208" Height="15" Padding="0" FontWeight="Bold"/>
         <ListView x:Name="listView" Margin="0,130,0.4,0" VerticalAlignment="Top" ItemsSource="{Binding ServerList, Mode=OneWay}" Background="#FFCCD8DE" SelectionMode="Multiple" >
@@ -92,5 +92,6 @@
             </ListView.View>
         </ListView>
         <Button CommandParameter="{Binding ElementName=listView, Path=SelectedItems}" Command="{Binding RemoveHostsCommand}" x:Name="button1" Content="Delete selected" HorizontalAlignment="Left" Margin="1130,97,0,0" VerticalAlignment="Top" Width="108"/>
+        <Button CommandParameter="{Binding ElementName=listView, Path=SelectedItems}" Command="{Binding UpdateHostsCommand}" x:Name="button2" Content="Update selected" HorizontalAlignment="Left" Margin="1005,97,0,0" VerticalAlignment="Top" Width="111"/>
     </Grid>
 </Window>
