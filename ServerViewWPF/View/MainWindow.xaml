@@ -91,6 +91,6 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button CommandParameter="{Binding ElementName=listView, Path=SelectedItems}" Command="{Binding RemoveHostsCommand}" x:Name="button1" Content="Delete selected" HorizontalAlignment="Left" Margin="1130,106,0,0" VerticalAlignment="Top" Width="108"/>
+        <Button CommandParameter="{Binding ElementName=listView, Path=SelectedItems}" Command="{Binding RemoveHostsCommand}" x:Name="button1" Content="Delete selected" HorizontalAlignment="Left" Margin="1130,97,0,0" VerticalAlignment="Top" Width="108"/>
     </Grid>
 </Window>
