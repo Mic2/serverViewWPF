@@ -30,7 +30,6 @@ namespace ServerViewWPF.ViewModel
         public ServerViewModel()
         {
             serverList = DalManager.Instance.GetAllServers();
-
             AddHostCommand = new RelayCommand(AddNewHost, param => true);
             RemoveHostsCommand = new RelayCommand(RemoveHosts, param => true);
             UpdateHostsCommand = new RelayCommand(UpdateHosts, param => true);
